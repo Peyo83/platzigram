@@ -1,37 +1,38 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+#from django.http import HttpResponse
 
 from datetime import datetime
 import json
 
 posts = [
     {
-        'name': 'Juan Pedro',
-        'user': 'Peyo',
-        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M'),
-        'pictures': 'https://i.picsum.photos/id/543/200/200.jpg?imagen=1036'
+        'title': 'Mont Blanc',
+        'user': {
+            'name': 'Yésica Cortés',
+            'picture': 'https://picsum.photos/60/60/?image=1027'
+        },
+        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
+        'photo': 'https://picsum.photos/800/600?image=1036',
     },
     {
-        'name': 'Vía láctea',
-        'user': 'C. Vander',
-        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M'),
-        'pictures': 'https://i.picsum.photos/id/543/200/200.jpg?imagen=903'
+        'title': 'Via Láctea',
+        'user': {
+            'name': 'Christian Van der Henst',
+            'picture': 'https://picsum.photos/60/60/?image=1005'
+        },
+        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
+        'photo': 'https://picsum.photos/800/800/?image=903',
     },
     {
-        'name': 'Auditorio',
-        'user': 'Otro',
-        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M'),
-        'pictures': 'https://i.picsum.photos/id/543/200/200.jpg?imagen=1076'
+        'title': 'Nuevo auditorio',
+        'user': {
+            'name': 'Uriel (thespianartist)',
+            'picture': 'https://picsum.photos/60/60/?image=883'
+        },
+        'timestamp': datetime.now().strftime('%b %dth, %Y - %H:%M hrs'),
+        'photo': 'https://picsum.photos/500/700/?image=1076',
     }
 ]
 
 def list_posts(request):
-    content = []
-
-    for post in posts:
-        content.append(f"""
-            <p><strong>{post['name']}</strong></p>
-            <p><small>{post['user']} - <i>{post['timestamp']}</i></small></p>
-            <figure><img src="{post['pictures']}"</figure>
-        """)
-    return HttpResponse('<br>'.join(content))
+    return render(request, 'feed.html', {'posts': posts})
